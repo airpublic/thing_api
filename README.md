@@ -1,17 +1,17 @@
 # Airpublic thingapi
 
-This API is responsible for accepting data from our things, out there on
-the internet. But it also has an admin interface and dashboards.
+This codebase is responsible for accepting data from our things, out there on
+the internet. It also has an admin interface, dashboards, and various other features.
 
 ## Getting started
 
-#####1. Set up containers
+##### 1. Set up containers
 
 ```bash
 docker-compose up
 ```
 
-#####2. Set up database
+##### 2. Set up database
 
 Run `docker exec -it postgres su postgres -c psql` and enter the
 following SQL:
@@ -42,7 +42,7 @@ To run migrations
 python manage.py migrate
 ```
 
-#####3. Done
+##### 3. Done
 
 Your development environment is now ready
 
