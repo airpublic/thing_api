@@ -1,0 +1,78 @@
+version: '3'
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    volumes:
+      - "./database:/var/lib/postgresql"
+      - ".:/thingapi"
+    restart: always
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_PASSWORD=c57029da5d
+    hostname: postgres.airpublic.local
+
+  thingapi:
+    build: .
+    image: thingapi:latest
+    container_name: thingapi
+    ports:
+      - "8888"
+      - "5000:5000"
+      - "8000:8000"
+    links:
+      - postgres
+    volumes:
+      - ".:/thingapi"
+    hostname:
+      thingapi-internal.airpublic.local
+    environment:
+      # This setting is used by Django to configure the web app, i.e. database
+      # passwords, session key etc
+      - "DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}"
+      # This is used by Django to reach Bokeh when initializing the plots.
+      # inside the dashboard. It must be reachable from Django.
+      - "BOKEH_INTERNAL_ROOT=http://localhost:5000" # This must not have a "/" at the end
+      # This is used by Django when rendering the HTML for the bokeh plots.
+      # It must be reachable from outside the containers.
+      - "BOKEH_ROOT=${BOKEH_ROOT}" # This must not have a "/" at the end
+      # This will be used in future for external links in emails etc
+      - "DJANGO_HOST=django.airpublic.local"
+      - "BOKEH_NUM_PROCESSES=1"
+      - "DEV=${DEV}"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.75"
+
+  nginx:
+    image: nginx:1.15-perl
+    volumes:
+      - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./certs:/etc/ssl/certs:ro"
+      - "./static:/static:ro"
+      - "./.well-known:/.well-known"
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - thingapi
+    environment:
+      - "HOSTNAMES=bokeh.airpublic.local,thingapi.airpublic.local,bokeh-0.bokeh.airpublic.local,bokeh-1.bokeh.airpublic.local"
+    command: "nginx -g 'daemon off; load_module /etc/nginx/modules/ngx_http_perl_module-debug.so;'"
+
+  dns:
+    container_name: dns
+    hostname: dns.airpublic.local
+    ports:
+      - "5380:5380"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/etc/resolv.conf:/etc/resolv.conf"
+    image: defreitas/dns-proxy-server:latest
+    environment:
+      - "MG_LOG_LEVEL=WARNING"
+

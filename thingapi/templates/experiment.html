@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block head %}
+
+<!-- goes in head -->
+<link href="app/static/css/custom.min.css" rel="stylesheet">
+
+<style>
+
+html, body {
+  padding: 0px;
+  margin: 0px;
+  background-color: #224d6f;
+}
+
+.panel-area {
+  position: fixed;
+}
+
+.panel {
+  border-radius: 15px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  overflow: hidden;
+  background-color: #22557d;
+  margin: 3px;
+}
+
+.panel .info {
+  margin: 20px;
+}
+
+.container {
+  font-family: Helvetica;
+  color: #CCC;
+}
+
+.container {
+  position: fixed;
+  width: 100%;
+  max-width: 100%;
+  top: 55px;
+  bottom: 0px;
+  padding: 0px;
+}
+
+</style>
+{% endblock %}
+
+{% block bodystart %}
+{% endblock %}
+<!-- goes in body -->
+{% block content %}
+{{autoload | safe}}
+{% endblock %}

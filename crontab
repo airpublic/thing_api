@@ -1,0 +1,3 @@
+4 * * * * root cd /thingapi && bash -lc 'source /cron_env.sh && python manage.py shell -c "import thingapi.met_scraper; thingapi.met_scraper.refresh_met_sites(); print(\"MET update complete\")"' >> /thingapi/cron.out 2> /thingapi/cron.err
+5 * * * * root cd /thingapi && bash -lc 'source /cron_env.sh && python manage.py shell -c "import thingapi.models; thingapi.models.import_laqn_update(); print(\"LAQN update complete\")"' >> /thingapi/cron.out 2> /thingapi/cron.err
+*/15 * * * * root cd /thingapi && bash -lc 'source /cron_env.sh && python manage.py shell -c "import thingapi.loaders; thingapi.loaders.Precomputed.precompute_all(); print(\"Precomputation complete\")"' >> /thingapi/cron.out 2> /thingapi/cron.err

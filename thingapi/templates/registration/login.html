@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='py-5 text-center'>
+  <h2>Log in to AirPublic</h2>
+  <p class="lead">View your dashboards</p>
+</div>
+
+<div class="row">
+
+
+  <div class="mainbox col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+    <div class="panel panel-info">
+      {% for err in form.non_field_errors %}
+      <div class="alert alert-danger">{{ err }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div style="float:right; font-size: 80%;">
+          Don't have an account? <a href="/signup">Sign up here</a>
+        </div>
+      </div>
+      <div class="panel-body">
+
+        <div hidden class="alert alert-danger col-sm-12"></div>
+
+          <form class="form-horizontal" role="form" action="/login/" method="POST">
+
+            {% csrf_token %}
+
+            <label for="email">Email</label>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-envelope"></i></span></div>
+              {% if form.username.errors %}
+              <input class="form-control is-invalid" id="email" name="username" value="{{ form.data.username}}" placeholder="Email address">
+                {% for message in form.username.errors %}
+              <div class="invalid-feedback">{{ message }}</div>
+                {% endfor %}
+              {% else %}
+              <input class="form-control" id="email" name="username" value="{{ form.data.username}}" placeholder="Email address">
+              {% endif %}
+            </div>
+
+            <label for="password">Password</label>
+
+            <div class="input-group mb-4">
+              <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
+              {% if form.password.errors %}
+              <input type="password" class="form-control is-invalid" id="password" name="password" value="{{ form.data.password }}" placeholder="Password">
+                {% for message in form.password.errors %}
+              <div class="invalid-feedback">{{ message }}</div>
+                {% endfor %}
+              {% else %}
+              <input type="password" class="form-control" id="password" name="password" value="{{ form.data.password }}" placeholder="password address">
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <div class="controls">
+                <input type="submit" id="btn-login" href="#" class="btn btn-success" value="Log in">
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="control">
+                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                  Forgot your password?
+                  <a href="/password-reset">Password Reset</a>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

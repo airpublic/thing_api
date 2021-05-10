@@ -1,0 +1,49 @@
+!!!5
+%html
+  %head
+    %meta{"name": "viewport", "content": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}
+    %link{"href": "//cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.css", "rel": "stylesheet", "type": "text/css"}
+    %link{"href": "//cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.css", "rel": "stylesheet", "type": "text/css"}
+    %link{"href": "//cdn.pydata.org/bokeh/release/bokeh-tables-0.12.15.min.css", "rel": "stylesheet", "type": "text/css"}
+    %link{"href": "//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css", "rel": "stylesheet", "type": "text/css"}
+
+    %script{"src": "//cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.js"}
+    %script{"src": "//cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.js"}
+    %script{"src": "//cdn.pydata.org/bokeh/release/bokeh-tables-0.12.15.min.js"}
+
+%body
+  .container-fluid
+    .row
+      .col-xs-12.col-md-12.col-sm-12.col-lg-12
+        %h1{"style": "text-align: center; margin: 15px"}
+          Airpublic Dashboard
+
+    .chart.col-xs-12.col-md-12.col-sm-12.col-lg-6
+      %h2 Readings per day
+      %p Not live
+      {% autoescape off %}
+      {{ timeseries }}
+      {% endautoescape %}
+
+    .chart.col-xs-12.col-md-12.col-sm-12.col-lg-6
+      %h2 Map of latest readings
+      %p Live
+      {% autoescape off %}
+      {{ map }}
+      {% endautoescape %}
+
+    .chart.col-xs-12.col-md-12.col-sm-12.col-lg-12
+      %h2 Last 10 readings
+      %p Not live
+      {% autoescape off %}
+      {{ latest }}
+      {% endautoescape %}
+
+    .chart.col-xs-12.col-md-12.col-sm-12.col-lg-12
+      %h2 Device status
+      %p Not live
+      {% autoescape off %}
+      {{ devices }}
+      {% endautoescape %}
+
+

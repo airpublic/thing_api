@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Air quality experiment</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/regular.css" integrity="sha384-A/oR8MwZKeyJS+Y0tLZ16QIyje/AmPduwrvjeH6NLiLsp4cdE4uRJl8zobWXBm4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+
+    <!-- goes in head -->
+    <link href="app/static/css/custom.min.css" rel="stylesheet">
+
+    <style>
+
+    html, body {
+      padding: 0px;
+      margin: 0px;
+      background-color: #224d6f;
+    }
+
+    .panel-area {
+      position: fixed;
+    }
+
+    .panel {
+      border-radius: 15px;
+      width: calc(100% - 6px);
+      height: calc(100% - 6px);
+      overflow: hidden;
+      background-color: #22557d;
+      margin: 3px;
+    }
+
+    .panel .info {
+      margin: 20px;
+    }
+
+    .container {
+      font-family: Helvetica;
+      color: #CCC;
+    }
+
+    .container {
+      position: fixed;
+      width: 100%;
+      max-width: 100%;
+      top: 55px;
+      bottom: 0px;
+      padding: 0px;
+    }
+
+    </style>
+  </head>
+  <body class='bg-light'>
+
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+      <a class="navbar-brand" href="#">
+        <img src="/static/thingapi/airpublic.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        AirPublic
+      </a>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div class="container">
+    </div>
+
+  </body>
+</html>

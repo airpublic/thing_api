@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='py-5 text-center'>
+  <h2>Client settings</h2>
+  <p class="lead">Configure settings for {{ client.name }}</p>
+  <p class="lead"><a href="/experiments/">Back to experiments</a></p>
+</div>
+
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+
+    <ul class="list-group">
+      <li class="list-group-item justify-content-between align-items-center">
+        <form action="/api_keys/" method="POST">
+          <button type="submit" class="btn btn-primary">New API key</button>
+          <input type="hidden" name="client_id" value="{{ client.id }}">
+        </form>
+        <span>This will not invalidate existing API keys</span>
+      </li>
+      {% for api_key in api_keys %}
+        <li class="list-group-item justify-content-between align-items-center">
+          <form style="width: 100%">
+            <div class="row form-group">
+              <label for="key" class="col-sm-2 col-form-label">API key</label>
+              <div class="col-sm-10">
+                <input name="key" type="text" value="{{ api_key.key }}" readonly class="form-control">
+              </div>
+            </div>
+            <div class="row form-group">
+              <label class="col-sm-2 col-form-label">Created</label>
+              <div class="col-sm-10"><div style="margin-top: 7px">{{ api_key.created }} by user <strong>{{ api_key.user_created.username }}</strong></div></div>
+            </div>
+            <div class="row form-group">
+              <label class="col-sm-2 col-form-label">Last used</label>
+              <div class="col-sm-10"><div style="margin-top: 7px">
+                {% if api_key.last_used %}
+                  {{ api_key.last_used }}
+                {% else %}
+                  Never
+                {% endif %}
+              </div></div>
+            </div>
+          </form>
+          <div>
+          </div>
+          <form style="width: 100%" method="POST" action="/api_keys/{{ api_key.id }}/delete/">
+            <div class="row form-group">
+              <label class="col-sm-2 col-form-label">Actions</label>
+              <div class="col-sm-10">
+                <input type="submit" class="btn btn-danger" value="Delete">
+              </div>
+            </div>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='py-5 text-center'>
+  <h2>Welcome to AirPublic</h2>
+  <p class="lead">Please select an experiment to view your data</p>
+</div>
+
+<div class="row">
+  <div class="col-md-10 offset-md-1">
+    {% if clients_experiments %}
+      {% for client, experiments in clients_experiments %}
+      <h2>{{ client.name }}&nbsp<a href='/clients/{{ client.id }}/'><i class="fas fa-cog"></i></a></h2>
+        {% if experiments %}
+          <ul class="list-group">
+            {% for experiment in experiments %}
+            <a href="/experiments/{{experiment.id}}">
+              <li class="list-group-item d-flex justify-content-between align-items-center">{{experiment.name}}</li>
+            </a>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="text-center alert alert-danger">
+            <h1>-- No experiments set up yet for this client --</h1>
+            <p>Please contact AirPublic</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="text-center alert alert-danger">
+        <h1>-- No clients set up for this user --</h1>
+        <p>Please contact AirPublic</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
