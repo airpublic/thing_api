@@ -78,8 +78,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'loaders': [
-                'hamlpy.template.loaders.HamlPyFilesystemLoader',
-                'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader'
             ]

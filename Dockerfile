@@ -1,6 +1,6 @@
 FROM python:3.7-buster
 
-RUN apt -y update
+RUN apt -y update --fix-missing
 
 #RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt -y install libproj-dev libgeos-dev postgresql-client libgdal-dev nodejs cron vim git htop nmap nethogs
@@ -10,7 +10,7 @@ RUN apt -y install libproj-dev libgeos-dev postgresql-client libgdal-dev nodejs 
 
 # These are required for Cartopy to be installed
 # Putting them in requirements.txt doesn't work
-RUN pip install "Cython==0.29"
+RUN pip install "Cython==0.29.24"
 RUN pip install "numpy==1.16.6"
 
 ## Build bokeh. This should match the version in requirements.txt
@@ -32,7 +32,9 @@ RUN pip install "numpy==1.16.6"
 
 ADD . /thingapi
 WORKDIR /thingapi
-RUN pip install -r requirements.txt --no-binary shapely --no-binary cartopy
+RUN pip install --upgrade pip
+RUN pip install 'Cartopy==0.17.0' 'Shapely==1.7.0' --no-binary Cartopy --no-binary Shapely --no-build-isolation
+RUN pip install -r requirements.txt
 
 RUN cat crontab >> /etc/crontab
 
